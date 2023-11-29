@@ -1,0 +1,36 @@
+<div class="flex justify-between mt-6">
+    <h1 class="text-3xl font-bold mb-4 text-[#023047]">Lista de Usuarios</h1>
+    <button class="bg-[#219ebc] text-white font-medium rounded px-3 py-1 mb-4" (click)="create()">Agregar Usuario</button>
+</div>
+
+<table class="table-auto w-full text-[#023047]">
+    <thead>
+        <tr>
+            <th class="px-4 py-2 text-center">N°</th>
+            <th class="px-4 py-2">Nombre</th>
+            <th class="px-4 py-2">Usuario</th>
+            <th class="px-4 py-2">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="border-t" *ngFor="let base of objs; let i = index">
+            <td class="text-center">{{  0 + i + this.objsPaginado.from }}</td>
+            <td>{{ base.nombres }} {{ base.apellidos }}</td>
+            <td>{{ base.user }}</td>
+            <td>
+                <button class="bg-[#fb8500] text-white rounded px-2 py-1 mr-2 font-medium" (click)="edit(base.id)">Editar</button>
+                <button class="bg-[#023047] text-white rounded px-2 py-1 font-medium" (click)="eliminar(base.id)">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+  
+<div class="flex justify-center my-4">
+    <ul class="pagination">
+        <li class="page-item" *ngFor="let link of objsPaginado.links">
+            <a class="page-link cursor-pointer" (click)="loadPage(link.url)" [class.active]="link.active">{{ getLinkText(link.label) }}</a>
+        </li>
+    </ul>
+</div>
+
+<button class="btn-primary">prueba</button>

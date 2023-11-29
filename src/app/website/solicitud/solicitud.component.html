@@ -1,0 +1,110 @@
+<section class="container mx-auto px-36 pt-3">
+    <h1 class="text-3xl font-bold mb-4 text-[#023047]">
+        Solicitud de Internet WIFI
+    </h1>
+    <form
+        action=""
+        [formGroup]="form"
+        (ngSubmit)="register(form.value)"
+        #ngForm="ngForm"
+        id="empleadoform"
+        novalidate
+        enctype="multipart/form-data"
+    >
+        <div>
+            <div class='grid grid-cols-2 gap-2'>
+                <div class="form-group">
+                    <label for="zona_id" class='block'>Zona:</label>
+                    <select 
+                        name="zona_id" 
+                        id="zona_id"
+                        class="w-full px-3 py-2 border rounded"
+                        formControlName="zona_id"
+                    >
+                        <option *ngFor="let zona of zonas" [value]="zona.id">{{ zona.nombre }}</option>
+                    </select>
+                    <span class="text-red-600" *ngIf="form.get('zona_id')!.hasError('required')">
+                        Zonas es requerido
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="plan_internet_id" class='block'>Plan Internet:</label>
+                    <select 
+                        name="plan_internet_id" 
+                        id="plan_internet_id"
+                        class="w-full px-3 py-2 border rounded"
+                        formControlName="plan_internet_id"
+                    >
+                        <option *ngFor="let plan of planes" [value]="plan.id">{{ plan.nombre }}</option>
+                    </select>
+                    <span class="text-red-600" *ngIf="form.get('plan_internet_id')!.hasError('required')">
+                        Plan Internet es requerido
+                    </span>
+                </div>
+                <div class="form-group col-span-2">
+                    <label for="nombre_completo" class='block'>Nombre Completo:</label>
+                    <input
+                        type="text"
+                        class="w-full px-3 py-2 border rounded"
+                        name="nombre_completo"
+                        formControlName="nombre_completo"
+                    />
+                    <span class="text-red-600" *ngIf="form.get('nombre_completo')!.hasError('required')">
+                        Nombre Completo es requerido
+                    </span>
+                </div>
+                <div class="form-group col-span-2">
+                    <label for="ci" class='block'>Carnet de Identidad:</label>
+                    <input
+                        type="text"
+                        class="w-full px-3 py-2 border rounded"
+                        name="ci"
+                        formControlName="ci"
+                    />
+                    <span class="text-red-600" *ngIf="form.get('ci')!.hasError('required')">
+                        CI es requerido
+                    </span>
+                </div>
+                <div class="form-group col-span-2">
+                    <label for="celular" class='block'>Celular:</label>
+                    <input
+                        type="text"
+                        class="w-full px-3 py-2 border rounded"
+                        name="celular"
+                        formControlName="celular"
+                    />
+                    <span class="text-red-600" *ngIf="form.get('celular')!.hasError('required')">
+                        Celular es requerido
+                    </span>
+                </div>
+                <div class="form-group col-span-2">
+                    <label for="email" class='block'>Correo Electrónico:</label>
+                    <input
+                        type="text"
+                        class="w-full px-3 py-2 border rounded"
+                        name="email"
+                        formControlName="email"
+                    />
+                    <span class="text-red-600" *ngIf="form.get('email')!.hasError('required')">
+                        Correo Electrónico es requerido
+                    </span>
+                </div>
+                <div class="form-group col-span-2">
+                    <label for="direccion" class='block'>Dirección:</label>
+                    <input
+                        type="text"
+                        class="w-full px-3 py-2 border rounded"
+                        name="direccion"
+                        formControlName="direccion"
+                    />
+                    <span class="text-red-600" *ngIf="form.get('direccion')!.hasError('required')">
+                        Dirección es requerido
+                    </span>
+                </div>
+            </div>
+            
+            <button class="bg-[#fb8500] text-white px-3 py-2 rounded mr-2" type="submit">Guardar</button>
+            <!-- <button class="bg-[#023047] text-white px-3 py-2 rounded" type="button" (click)="activeModal.close('Close click')">Cancelar</button> -->
+        </div>
+    </form>
+</section>

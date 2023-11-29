@@ -1,0 +1,62 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-20 w-full "   >
+    <div class="">
+        <div class=" rounded overflow-hidden shadow-lg">
+            <h3 class=" p-4 text-xl" >Solicitudes <span class="text-[#023047] font-bold " >Pendientes</span></h3>
+            
+            <div class="flex justify-end px-4 " >
+                <input type="text" placeholder="Buscar" class=" px-3 py-2 border rounded" >
+            </div>
+
+            <div class="relative overflow-x-auto p-4 " >
+                <table class="table-auto w-full text-[#023047]  ">
+                    <thead >
+                        <tr class="border" >
+                            <th class="px-4 py-2">N° Solicitud</th>
+                            <th class="px-4 py-2">Fecha</th>
+                            <th class="px-4 py-2">Cliente</th>
+                            <th class="px-4 py-2">Celular</th>
+                            <th class="px-4 py-2">Dirección</th>
+                            <th class="px-4 py-2">Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr class="border" *ngFor="let item of pendientes" >
+                            <td class=" px-4 py-2" >{{item.id}}</td>
+                            <td class=" px-4 py-2" >{{item.created_at| date:'dd/MM/yyyy hh:mm'}}</td>
+                            <td class=" px-4 py-2" >{{item.nombre_completo}}</td>
+                            <td class=" px-4 py-2" >{{item.celular}}</td>
+                            <td class=" px-4 py-2" ><a href="">{{item.direccion}}</a></td>
+                            <td class=" px-4 py-2" >{{item.plan_internet?.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+    <div class="">
+        <div class=" rounded overflow-hidden shadow-lg">
+            <h3 class=" p-4 text-xl" >Cobranzas <span class="text-[#023047] font-bold " >Pendientes</span></h3>
+            <div class="relative overflow-x-auto " >
+                <table class="table-auto w-full text-[#023047]">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">N° Contrato</th>
+                            <th class="px-4 py-2">Fecha Instalación</th>
+                            <th class="px-4 py-2">Cliente</th>
+                            <th class="px-4 py-2">CI</th>
+                            <th class="px-4 py-2">Lugar</th>
+                            <th class="px-4 py-2">Mensualidades Penientes</th>
+                            <th class="px-4 py-2">Monto</th>
+                            <th class="px-4 py-2">Mensajes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<nav class="bg-[#8ecae6] text-[#023047]">
+    <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
+        <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
+            <a 
+                class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" 
+                [routerLink]="['/website/inicio']"
+            >            
+                <img class="inline mb-1 h-12" style="width: auto;" src="assets/logo-original.gif" alt="">
+            </a>
+            <button class="text-[#023047] cursor-pointer text-xl leading-none px-3 py-1 rounded bg-transparent block lg:hidden" type="button" (click)="toggleNavbar()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+            </button>
+        </div>
+        <div [ngClass]="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
+            <ul class="flex flex-col lg:flex-row list-none ml-auto">
+                <li class="nav-item px-1">
+                    <a 
+                        class="px-3 py-2 flex items-center rounded-md hover:bg-[#fb8500] text-[#023047] font-semibold" 
+                        [routerLink]="['/website/inicio']"
+                        routerLinkActive="active"
+                    >
+                        Inicio
+                    </a>
+                </li>
+                <li class="nav-item px-1">
+                    <a 
+                        class="px-3 py-2 flex items-center rounded-md hover:bg-[#fb8500] text-[#023047] font-semibold" 
+                        [routerLink]="['/website/solicitud']"
+                        routerLinkActive="active"
+                    >
+                        Solicitud de Servicio
+                    </a>
+                </li>
+                <li class="nav-item px-1">
+                    <a 
+                        class="px-3 py-2 flex items-center rounded-md hover:bg-[#fb8500] text-[#023047] font-semibold" 
+                        [routerLink]="['/auth/login']"
+                        routerLinkActive="active"
+                    >
+                        Intranet
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

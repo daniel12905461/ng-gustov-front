@@ -1,0 +1,80 @@
+<!-- <div class="modal-container bg-white w-96 mx-auto rounded-lg shadow-lg"> -->
+
+<form
+    action=""
+    [formGroup]="basicForm"
+    (ngSubmit)="register(basicForm.value)"
+    #ngForm="ngForm"
+    id="empleadoform"
+    novalidate
+    enctype="multipart/form-data"
+>
+
+    <!-- Cabecera de la modal -->
+    <div class="modal-header px-4 py-2 rounded-t-lg text-[#023047]">
+        <h3 class="text-lg mb-0 font-medium">{{title}}</h3>
+    </div>
+
+    <!-- Cuerpo de la modal -->
+    <div class="modal-body px-4 py-4 text-[#023047]">
+        
+        <div class='grid grid-cols-2 gap-2'>
+            <div class="form-group col-span-2">
+                <label for="nombres" class='block'>Nombres:</label>
+                <input
+                    type="text"
+                    class="w-full px-3 py-2 border rounded"
+                    name="nombres"
+                    formControlName="nombres"
+                />
+                <span class="text-red-600" *ngIf="basicForm.get('nombres')!.hasError('required')">
+                    Nombres es requerido
+                </span>
+            </div>
+            <div class="form-group col-span-2">
+                <label for="apellidos" class='block'>Apellidos:</label>
+                <input
+                    type="text"
+                    class="w-full px-3 py-2 border rounded"
+                    name="apellidos"
+                    formControlName="apellidos"
+                />
+                <span class="text-red-600" *ngIf="basicForm.get('apellidos')!.hasError('required')">
+                    Apellidos es requerido
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="user" class='block'>Usuario:</label>
+                <input
+                    type="text"
+                    class="w-full px-3 py-2 border rounded"
+                    name="user"
+                    formControlName="user"
+                />
+                <span class="text-red-600" *ngIf="basicForm.get('user')!.hasError('required')">
+                    Usuario es requerido
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="password" class='block'>Contraseña:</label>
+                <input
+                    type="password"
+                    class="w-full px-3 py-2 border rounded"
+                    name="password"
+                    formControlName="password"
+                />
+                <span class="text-red-600" *ngIf="basicForm.get('password')!.hasError('required')">
+                    Contraseña es requerido
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página de la modal -->
+    <div class="modal-footer bg-gray-100 px-4 py-2 rounded-b-lg flex justify-end">
+        <button class="bg-[#fb8500] text-white px-3 py-2 rounded mr-2" type="submit">Guardar</button>
+        <button class="bg-[#023047] text-white px-3 py-2 rounded" type="button" (click)="activeModal.close('Close click')">Cancelar</button>
+    </div>
+
+<!-- </div> -->
+</form>

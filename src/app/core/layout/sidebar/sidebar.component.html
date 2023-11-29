@@ -1,0 +1,35 @@
+<aside class="fixed h-screen z-10" (click)="ejecutarMenu()"
+    [ngClass]="menuShow ? 'w-full bg-transparente-sidebar lg:bg-transparent' : ''">
+    <!-- hover:md:w-64 -->
+    <div class="prueba h-screen md:flex flex-col lg:w-64 bg-white shadow-lg"
+        [ngClass]="menuShow ? 'w-64 flex' : 'hidden w-16'">
+        <div class="pt-10 pb-8 text-center">
+          <img src="assets/logo-original.gif" alt="">
+          <!-- <span class="font-bold text-lg text-emerald-500"
+              [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents'">FacialCheck</span> -->
+        </div>
+        <div class="flex-grow px-2 overflow-y-auto scrollbarStyle">
+            <!-- [ngClass]="menuShow || menuShow ? 'px-6' : ' px-0 lg:px-6'" -->
+            <div class="rounded-lg py-4 flex flex-col">
+                <a [routerLink]="['/dashboard/inicio']"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] hover:rounded-md flex flex-row"
+                    [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'">
+                    <div class="w-12 flex justify-center items-center">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                    </div>
+                    <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Inicio</span>
+                </a>
+                <a [routerLink]="['/dashboard/usuarios']"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row my-1"
+                    [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'"
+                    routerLinkActive="active"
+                >
+                    <div class="w-12 flex justify-center items-center">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+                    </div>
+                    <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Usuarios</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</aside>
