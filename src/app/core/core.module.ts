@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CoreRoutingModule } from './core-routing.module';
 import { LayoutModule } from './layout/layout.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpAuxInterceptor } from './interceptor/http-aux.interceptor';
+// import { HttpAuxInterceptor } from './interceptor/http-aux.interceptor';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
 
 

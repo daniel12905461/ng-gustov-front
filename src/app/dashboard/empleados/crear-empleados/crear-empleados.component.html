@@ -1,0 +1,53 @@
+<form action="" [formGroup]="basicForm" (ngSubmit)="register(basicForm.value)" #ngForm="ngForm" id="empleadoform"
+	novalidate enctype="multipart/form-data">
+
+	<!-- Cabecera de la modal -->
+	<div class="modal-header px-4 py-2 rounded-t-lg text-[#023047]">
+		<h3 class="text-lg mb-0 font-bold">{{title}}</h3>
+	</div>
+
+	<!-- Cuerpo de la modal -->
+	<div class="modal-body px-4 py-4 text-[#023047]">
+
+		<div class='grid grid-cols-2'>
+			<div class='form-group m-1 col-span-2'>
+				<label class='form-label'>Nombres</label>
+				<input type="text" class='form-control form-control-sm' id='title' formControlName="nombres"
+					placeholder="nombres"
+					[ngClass]="{'is-invalid': basicForm.get('nombres')!.touched && basicForm.get('nombres')!.invalid}" />
+				<div class="invalid-feedback">
+					<div>Nombres es requerido</div>
+				</div>
+			</div>
+			<div class='form-group m-1 col-span-2'>
+				<label class='form-label'>Apellidos</label>
+				<input type="text" class='form-control form-control-sm' id='title' formControlName="apellidos"
+					placeholder="apellidos"
+					[ngClass]="{'is-invalid': basicForm.get('apellidos')!.touched && basicForm.get('apellidos')!.invalid}" />
+				<div class="invalid-feedback">
+					<div>Apellidos es requerido</div>
+				</div>
+			</div>
+			<div class='form-group m-1 col-span-2'>
+				<label class='form-label'>Fecha de Inicio</label>
+				<input type="date" class='form-control form-control-sm' 
+					id='fecha_inicio' 
+					formControlName="fecha_inicio"
+					placeholder="fecha_inicio"
+					[ngClass]="{'is-invalid': basicForm.get('fecha_inicio')!.touched && basicForm.get('fecha_inicio')!.invalid}" />
+				<div class="invalid-feedback">
+					<div>Fecha de Inicio es requerido</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Pie de página de la modal -->
+	<div class="modal-footer bg-gray-100 px-4 py-2 rounded-b-lg flex justify-end">
+		<button class="bg-[#fb8500] text-white px-3 py-2 rounded mr-2" type="submit">Guardar</button>
+		<button class="bg-[#023047] text-white px-3 py-2 rounded" type="button"
+			(click)="activeModal.close('Close click')">Cancelar</button>
+	</div>
+
+	<!-- </div> -->
+</form>

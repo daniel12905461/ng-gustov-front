@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
+import { environment } from 'src/environments/environment.prod';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,7 +19,7 @@ export class AuthService {
     private http: HttpClient,
     private tokenStorageService: TokenStorageService
   ) {
-    this.baseUrl = 'auth';
+    this.baseUrl = environment.serverBaseUrl+'auth';
   }
 
   login(loginForm: any) {

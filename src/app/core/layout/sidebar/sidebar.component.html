@@ -12,7 +12,7 @@
             <!-- [ngClass]="menuShow || menuShow ? 'px-6' : ' px-0 lg:px-6'" -->
             <div class="rounded-lg py-4 flex flex-col">
                 <a [routerLink]="['/dashboard/inicio']"
-                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] hover:rounded-md flex flex-row"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row mb-0.5"
                     [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'">
                     <div class="w-12 flex justify-center items-center">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
@@ -20,7 +20,7 @@
                     <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Inicio</span>
                 </a>
                 <a [routerLink]="['/dashboard/usuarios']"
-                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row my-1"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row mb-0.5"
                     [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'"
                     routerLinkActive="active"
                 >
@@ -28,6 +28,26 @@
                         <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
                     </div>
                     <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Usuarios</span>
+                </a>
+                <a [routerLink]="['/dashboard/empleados']"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row mb-0.5"
+                    [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'"
+                    routerLinkActive="active"
+                >
+                    <div class="w-12 flex justify-center items-center">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">people</mat-icon>
+                    </div>
+                    <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Empleados</span>
+                </a>
+                <a [routerLink]="['/dashboard/vacaciones']"
+                    class="text-[#023047] font-bold py-1 text-lg hover:text-[#023047] hover:bg-[#fb8500] rounded-md flex flex-row mb-0.5"
+                    [ngClass]="menuShow || menuShow ? 'text-left' : 'lg:text-left'"
+                    routerLinkActive="active"
+                >
+                    <div class="w-12 flex justify-center items-center">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">assignment_late</mat-icon>
+                    </div>
+                    <span [ngClass]="menuShow || menuShow ? '' : 'hidden lg:contents lg:ml-4'">Vacaciones</span>
                 </a>
             </div>
         </div>

@@ -20,6 +20,14 @@ const routes: Routes = [
         component: MainComponent,
         // canActivate: [AuthGuardService]
       },
+      {
+        path: 'empleados',
+        loadChildren: () => import('./empleados/empleados.module').then(m => m.EmpleadosModule)
+      },
+      {
+        path: 'vacaciones',
+        loadChildren: () => import('./vacaciones/vacaciones.module').then(m => m.VacacionesModule)
+      },
     ]
   }
 ];

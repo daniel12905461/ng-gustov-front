@@ -3,13 +3,45 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.active>.page-link, .page-link.active {
+    /* z-index: 3;
+    color: var(--bs-pagination-active-color); */
+    background-color: #023047 !important;
+    border-color: #023047 !important;
+}
 
 .active {
     @apply bg-[#ffb703];
 }
 
+.form-label {
+    margin-bottom: 1px !important;
+}
+
+.example-full-width{
+    width: 100% !important;
+}
+
 /* .btn-primary {
 	@apply rounded-lg bg-primary-500 py-1 px-2 text-center text-sm text-dark-300 transition ease-in hover:scale-110 hover:bg-primary-700 hover:duration-150;
 } */
+
+/* Agrega esto en tu archivo de estilos del componente modal */
+::ng-deep .mat-select-panel {
+    z-index: 1000; /* O un valor más alto si es necesario */
+}
+/* Agrega esto en tu archivo de estilos del componente modal */
+::ng-deep app-solicitar-vacaciones mat-select-panel {
+    z-index: 1000; /* O un valor más alto si es necesario */
+}
+/* Agrega esto en tu archivo de estilos del componente modal */
+::ng-deep .modal-content {
+    z-index: 999; /* O un valor más alto que el z-index del mat-select */
+}
+  
+  

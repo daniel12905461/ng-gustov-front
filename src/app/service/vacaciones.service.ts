@@ -6,17 +6,10 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-export class SolicitudesService extends BaseApiClass {
+export class VacacionesService extends BaseApiClass {
 
   constructor(protected override httpClient: HttpClient) {
     super(httpClient);
-    // this.baseUrl = 'solicitudes';
-    this.baseUrl = environment.serverBaseUrl+'solicitudes';
-  }
-  
-  pdfSolicitudHoja(id: any) {
-    return this.httpClient.get(this.baseUrl + `/pdf/solicitud?id=${id}`,{
-      responseType: 'blob'
-    });
+    this.baseUrl = environment.serverBaseUrl+'vacaciones';
   }
 }

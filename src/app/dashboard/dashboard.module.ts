@@ -8,13 +8,15 @@ import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
 import { CreateUsuariosComponent } from './list-usuarios/create-usuarios/create-usuarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
+import { VerPdfComponent } from './ver-pdf/ver-pdf.component';
 
 
 @NgModule({
   declarations: [
     ListUsuariosComponent,
     CreateUsuariosComponent,
-    MainComponent
+    MainComponent,
+    VerPdfComponent
   ],
   imports: [
     CommonModule,
