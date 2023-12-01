@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, delay, filter, finalize, map, takeUntil, tap } from 'rxjs/operators';
 import { AlertSwallService } from 'src/app/core/service/alert-swall.service';
 import { DiaLaboralesService } from 'src/app/service/dia-laborales.service';
 import { EmpleadosService } from 'src/app/service/empleados.service';
@@ -46,7 +46,8 @@ export class SolicitarVacacionesComponent {
     public diaLaboralesService: DiaLaboralesService,
     public alertSwal: AlertSwallService,
     public router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public activatedRoute: ActivatedRoute,
   ) {
   }
 
@@ -56,15 +57,42 @@ export class SolicitarVacacionesComponent {
     this.listEmpleados({'term':''});
     this.listDiaLaborales();
 
-    // if (this.id !== null) {
-    //   this.baseService.getById(this.id).subscribe(data => {
-    //     this.basicForm.patchValue({
-    //       nombres: data.data.nombres,
-    //       apellidos: data.data.apellidos,
-    //       fecha_inicio: data.data.fecha_inicio,
-    //     });
-    //   });
-    // }
+    if (this.activatedRoute.snapshot.queryParams['edit']) {
+      this.baseService.getById(this.activatedRoute.snapshot.queryParams['id']).subscribe(data => {
+        this.basicForm.patchValue({
+          // anio_id: data.data.nombres,
+          empleado_id: data.data.vacacion.empleado.id,
+          fecha_inicio: data.data.dias[0].fecha,
+          fecha_fin: data.data.dias[data.data.dias.length-1].fecha,
+          dias_restantes: data.data.vacacion.dias_restantes,
+          dias_vacaciones: data.data.vacacion.dias_vacaciones,
+          dias_solicitados: data.data.dias.length
+        });
+        this.llenarDias(data.data.dias);
+      });
+    }
+
+    // select  ------> SELECT CON BUSCADOR
+    this.bankServerSideFilteringCtrl.valueChanges
+    .pipe(
+      filter(search => !!search),
+      tap(() => this.searching = true),
+      takeUntil(this._onDestroy),
+      debounceTime(200),
+      map(search => {
+        this.listEmpleados({'term':search});
+      }),
+      delay(500)
+    )
+    .subscribe((filteredBanks:any) => {
+      this.searching = false;
+      // console.log('B',filteredBanks);
+    },
+    error => {
+      // no errors in our simulated example
+      this.searching = false;
+      // handle error...
+    });
     
     this.dia = <FormArray>this.basicForm.controls['dias'];
 
@@ -74,14 +102,14 @@ export class SolicitarVacacionesComponent {
       });
     })
 
-    this.basicForm.get('fecha_fin')?.valueChanges.subscribe((data: any) => {
-      (<FormArray>this.basicForm.controls['dias']).clear();
-      this.diasAux = this.calcularDias();
-      for (let index = 0; index < this.diasAux.length; index++) {
-        this.dia.push(this.crearDia());
-      }
-      this.basicForm.patchValue({ dias: this.diasAux });
-    })
+    // this.basicForm.get('fecha_fin')?.valueChanges.subscribe((data: any) => {
+    //   (<FormArray>this.basicForm.controls['dias']).clear();
+    //   this.diasAux = this.calcularDias();
+    //   for (let index = 0; index < this.diasAux.length; index++) {
+    //     this.dia.push(this.crearDia());
+    //   }
+    //   this.basicForm.patchValue({ dias: this.diasAux });
+    // })
   }
 
   createForm() {
@@ -112,23 +140,45 @@ export class SolicitarVacacionesComponent {
       this.alertSwal.showSwallError('Los Dias a Solicitados no pueden ser mayor que Dias a Restantes');
       this.isLoading = false;
     } else {
-      this.baseService
-        .create(basicForm)
-        .pipe(
-          finalize(() => {
-            this.basicForm.markAsPristine();
-            this.isLoading = false;
-          })
-        )
-        .subscribe(
-          data => {
-            this.alertSwal.showSwallSuccess(data.success);
-            this.router.navigate(['/dashboard/vacaciones']);
-          },
-          (error: any) => {
-            this.alertSwal.showSwallError(error.error);
-          }
-        );
+      if (this.activatedRoute.snapshot.queryParams['edit']) {
+        this.baseService
+          .update(this.activatedRoute.snapshot.queryParams['id'],basicForm)
+          .pipe(
+            finalize(() => {
+              this.basicForm.markAsPristine();
+              this.isLoading = false;
+            })
+          )
+          .subscribe(
+            data => {
+              this.alertSwal.showSwallSuccess(data.success);
+              this.router.navigate(['/dashboard/vacaciones']);
+            },
+            (error: any) => {
+              this.alertSwal.showSwallError(error.error);
+            }
+          );
+        
+      }else{
+        this.baseService
+          .create(basicForm)
+          .pipe(
+            finalize(() => {
+              this.basicForm.markAsPristine();
+              this.isLoading = false;
+            })
+          )
+          .subscribe(
+            data => {
+              this.alertSwal.showSwallSuccess(data.success);
+              this.router.navigate(['/dashboard/vacaciones']);
+            },
+            (error: any) => {
+              this.alertSwal.showSwallError(error.error);
+            }
+          );
+
+      }
     }
   }
 
@@ -146,6 +196,33 @@ export class SolicitarVacacionesComponent {
     });
   }
   
+  changeFechaFin(){
+    (<FormArray>this.basicForm.controls['dias']).clear();
+    this.diasAux = this.calcularDias();
+    this.basicForm.get('dias_solicitados')?.setValue(this.diasAux.length);
+    for (let index = 0; index < this.diasAux.length; index++) {
+      this.dia.push(this.crearDia());
+    }
+    this.basicForm.patchValue({ dias: this.diasAux });
+  }
+
+
+  llenarDias(diasList: any){
+    for (let index = 0; index < diasList.length; index++) {
+      this.dia.push(this.crearDia());
+    }
+    this.basicForm.patchValue({ dias: diasList });
+  }
+
+  quitarDia(item: any) {
+    for (let i = 0; i < this.dia.controls.length; i++) {
+      if (item === i) {
+        (<FormArray>this.basicForm.controls['dias']).removeAt(i);
+      }
+    }
+    this.basicForm.get('dias_solicitados')?.setValue(this.dia.controls.length);
+  }
+
   calcularDias() {
     const fechaInicio = this.basicForm.get('fecha_inicio')?.value;
     const fechaFin = this.basicForm.get('fecha_fin')?.value;
@@ -179,7 +256,7 @@ export class SolicitarVacacionesComponent {
     
     console.log(arrayFechasFiltrado);
 
-    this.basicForm.get('dias_solicitados')?.setValue(arrayFechasFiltrado.length);
+    // this.basicForm.get('dias_solicitados')?.setValue(arrayFechasFiltrado.length);
     // this.basicForm.get('dias')?.setValue(arrayFechasFiltrado);
 
     return arrayFechasFiltrado;

@@ -21,6 +21,8 @@
             <th class="px-4 py-2 text-center">N°</th>
             <th class="px-4 py-2">Nombre</th>
             <th class="px-4 py-2 text-center">Fecha de inicio</th>
+            <th class="px-4 py-2 text-center">Dias de Vacación</th>
+            <th class="px-4 py-2 text-center">Aprobar</th>
             <th class="px-4 py-2 text-center">Acciones</th>
         </tr>
     </thead>
@@ -29,10 +31,14 @@
             <td class="text-center">{{  0 + i + this.objsPaginado.from }}</td>
             <td>{{ base?.vacacion?.empleado?.nombres }} {{ base?.vacacion?.empleado?.apellidos }}</td>
             <td class="text-center">{{ base?.vacacion?.empleado?.fecha_inicio | date }}</td>
+            <td class="text-center">{{ base?.dias_vacaciones }}</td>
+            <td class="text-center">
+                <mat-slide-toggle [id]="base.id" [checked]="!base.activo" [disabled]="!base.activo"
+                (change)="enable(base.id)"></mat-slide-toggle></td>
             <td class="text-center">
                 <button class="bg-[#219ebc] text-white rounded my-0.5 px-2 py-0.5 mr-2 font-medium" (click)="verPdf(base.id)">Ver PDF</button>
-                <button class="bg-[#fb8500] text-white rounded my-0.5 px-2 py-0.5 mr-2 font-medium" (click)="edit(base.id)">Editar</button>
-                <button class="bg-[#023047] text-white rounded my-0.5 px-2 py-0.5 font-medium" (click)="eliminar(base.id)">Eliminar</button>
+                <!-- <button class="bg-[#fb8500] text-white rounded my-0.5 px-2 py-0.5 mr-2 font-medium" (click)="edit(base.id)">Editar</button> -->
+                <button class="bg-[#023047] text-white rounded my-0.5 px-2 py-0.5 font-medium" (click)="eliminar(base.id)" *ngIf="base.activo">Eliminar</button>
             </td>
         </tr>
     </tbody>

@@ -46,6 +46,7 @@
 				id='fecha_fin' 
 				formControlName="fecha_fin"
 				placeholder="fecha_fin"
+				(change)="changeFechaFin()"
 				[ngClass]="{'is-invalid': basicForm.get('fecha_fin')!.touched && basicForm.get('fecha_fin')!.invalid}" />
 			<div class="invalid-feedback">
 				<div>Fecha Fin es requerido</div>
@@ -61,7 +62,7 @@
 				<thead>
 					<tr>
 						<th class="px-4 py-2 text-center">N°</th>
-						<th class="px-4 py-2">Dia</th>
+						<th class="px-4 py-2 text-center">Dia</th>
 						<th class="px-4 py-2 text-center">Fecha</th>
 						<!-- <th class="px-4 py-2 text-center">Acciones</th> -->
 					</tr>
@@ -84,7 +85,8 @@
 						<td class="text-center">
 							<!-- <button class="bg-[#fb8500] text-white rounded my-0.5 px-2 py-0.5 mr-2 font-medium" (click)="edit(base.id)">Editar</button> -->
 							<!-- (click)="eliminar(base.id)" -->
-							<button class="bg-[#023047] text-white rounded my-0.5 px-2 py-0.5 font-medium" >Eliminar</button>
+							<!-- *ngIf="activatedRoute.snapshot.queryParams['edit']" -->
+							<button class="bg-[#023047] text-white rounded my-0.5 px-2 py-0.5 font-medium" (click)="quitarDia(i)">Eliminar</button>
 						</td>
 					  </tr>
 				</tbody>

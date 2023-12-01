@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Subject, debounceTime, delay, filter, map, takeUntil, tap } from 'rxjs';
 import { SolicitudesService } from 'src/app/service/solicitudes.service';
 import { VerPdfComponent } from '../../ver-pdf/ver-pdf.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-vacaciones',
@@ -31,7 +32,8 @@ export class ListVacacionesComponent {
     private modalService: NgbModal,
     // private baseService: VacacionesService,
     private baseService: SolicitudesService,
-    public alertSwal: AlertSwallService
+    public alertSwal: AlertSwallService,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -110,18 +112,24 @@ export class ListVacacionesComponent {
   }
 
   edit(id: any){
-    const modalRef = this.modalService.open(
-      SolicitarVacacionesComponent,
-      this.modalOptions
-    );
-    modalRef.componentInstance.title = 'Editar Empleado';
-    modalRef.componentInstance.id = id;
-
-    modalRef.result.then(result => {
-      if (result) {
-        this.list();
+    this.router.navigate(['/dashboard/vacaciones/solicitar-vacaciones'], {
+      queryParams: {
+        id: id,
+        edit: true
       }
     });
+    // const modalRef = this.modalService.open(
+    //   SolicitarVacacionesComponent,
+    //   this.modalOptions
+    // );
+    // modalRef.componentInstance.title = 'Editar Empleado';
+    // modalRef.componentInstance.id = id;
+
+    // modalRef.result.then(result => {
+    //   if (result) {
+    //     this.list();
+    //   }
+    // });
 
   }
 
@@ -148,16 +156,27 @@ export class ListVacacionesComponent {
   }
 
   enable(id: any) {
-    this.baseService.enabled(id).subscribe(
-      data => {
-        this.list();
-      },
-      error => {
-        // console.log('error ' + error);
-        this.alertSwal.showSwallError(error.error);
-        this.list();
-      }
-    );
+    this.alertSwal
+      .showConfirm({
+        title: 'Esta seguro de Aprobar?',
+        text: 'la accion no podra revertirse...!',
+        icon: 'warning'
+      })
+      .then(res => {
+        // console.log(res);
+        if (res.value === true) {
+          this.baseService.enabled(id).subscribe(
+            data => {
+              this.list();
+            },
+            error => {
+              // console.log('error ' + error);
+              this.alertSwal.showSwallError(error.error);
+              this.list();
+            }
+          );
+        }
+      });
   }
 
   getLinkText(label: string): string {
