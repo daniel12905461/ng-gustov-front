@@ -27,7 +27,7 @@
   
 <div class="flex justify-center my-4">
     <ul class="pagination">
-        <li class="page-item" *ngFor="let link of objsPaginado.links">
+        <li class="page-item" *ngFor="let link of objsPaginado?.links">
             <a class="page-link cursor-pointer text-[#023047] text-xs" (click)="loadPage(link.url)" [class.active]="link.active">{{ getLinkText(link.label) }}</a>
         </li>
     </ul>
